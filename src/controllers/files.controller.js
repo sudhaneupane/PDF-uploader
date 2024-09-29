@@ -36,4 +36,17 @@ const getFile = async (req, res) => {
   }
 };
 
-export { uploadPDF, getFile };
+const deleteFile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const delFileFn = await Files.deleteOne({ _id: id });
+    if (delFileFn.deletedCount === 0) {
+      return res.status(400).json({ message: "ID does not exist" });
+    }
+    res.status(200).json({ message: "File deleted successfully" });
+  } catch (error) {
+    res.status(400).json({ error: "Cannot delete file" });
+  }
+};
+
+export { uploadPDF, getFile, deleteFile };

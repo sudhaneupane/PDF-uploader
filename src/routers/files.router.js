@@ -1,5 +1,9 @@
 import multer from "multer";
-import { getFile, uploadPDF } from "../controllers/files.controller.js";
+import {
+  deleteFile,
+  getFile,
+  uploadPDF,
+} from "../controllers/files.controller.js";
 import { Router } from "express";
 
 const upload = multer({
@@ -11,5 +15,7 @@ const router = Router();
 router.post("/upload", upload.single("file"), uploadPDF);
 
 router.get("/files", getFile);
+
+router.delete("/delete/:id", deleteFile);
 
 export default router;
